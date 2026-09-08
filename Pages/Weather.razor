@@ -44,9 +44,7 @@ else
     {
         forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
 
-        //await DownloadVersion();
-
-        apiTest = Guid.NewGuid().ToString();
+        await DownloadVersion();
     }
 
     public class WeatherForecast
@@ -66,11 +64,13 @@ else
 
     private async Task DownloadVersion()
     {
-        client.DefaultRequestHeaders.Add("X-API-Key", "X-API-Key");
-        using (var response = await client.GetAsync(@"https://interventi-skydivingangelhotmail891.msappproxy.net/api/versioning/v1"))
-        {
-            apiTest = await response.Content.ReadAsStringAsync();
-        }
+        apiTest = Guid.NewGuid().ToString();
+
+        // client.DefaultRequestHeaders.Add("X-API-Key", "X-API-Key");
+        // using (var response = await client.GetAsync(@"https://interventi-skydivingangelhotmail891.msappproxy.net/api/versioning/v1"))
+        // {
+        //     apiTest = await response.Content.ReadAsStringAsync();
+        // }
     }
 
 }
