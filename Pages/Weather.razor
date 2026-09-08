@@ -3,9 +3,10 @@
 
 <PageTitle>Weather</PageTitle>
 
-<h1>Weather</h1>
+<h1>Weather - @apiTest</h1>
 
 <p>This component demonstrates fetching data from the server.</p>
+<button class="btn btn-primary" @onclick="DownloadVersion">Click me</button>
 
 @if (forecasts == null)
 {
@@ -43,11 +44,9 @@ else
     {
         forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
 
-        client.DefaultRequestHeaders.Add("X-API-Key", "X-API-Key");
-        using (var response = await client.GetAsync(@"https://interventi-skydivingangelhotmail891.msappproxy.net/api/versioning/v1"))
-        {
-            apiTest = await response.Content.ReadAsStringAsync();
-        }
+        //await DownloadVersion();
+
+        apiTest = Guid.NewGuid().ToString();
     }
 
     public class WeatherForecast
@@ -64,5 +63,14 @@ else
     private readonly HttpClient client = new HttpClient();
     private string apiTest = string.Empty;
 
+
+    private async Task DownloadVersion()
+    {
+        client.DefaultRequestHeaders.Add("X-API-Key", "X-API-Key");
+        using (var response = await client.GetAsync(@"https://interventi-skydivingangelhotmail891.msappproxy.net/api/versioning/v1"))
+        {
+            apiTest = await response.Content.ReadAsStringAsync();
+        }
+    }
 
 }
