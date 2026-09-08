@@ -42,6 +42,12 @@ else
     protected override async Task OnInitializedAsync()
     {
         forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+
+        client.DefaultRequestHeaders.Add("X-API-Key", "X-API-Key");
+        using (var response = await client.GetAsync(@"https://interventi-skydivingangelhotmail891.msappproxy.net/api/versioning/v1"))
+        {
+            apiTest = await response.Content.ReadAsStringAsync();
+        }
     }
 
     public class WeatherForecast
@@ -54,4 +60,9 @@ else
 
         public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
     }
+
+    private readonly HttpClient client = new HttpClient();
+    private string apiTest = string.Empty;
+
+
 }
